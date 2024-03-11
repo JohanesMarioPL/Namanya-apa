@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kurikulum;
-use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -26,6 +24,11 @@ class Controller extends BaseController
         return Response()->view('admin.index');
     }
 
+    public function profileAdmin()
+    {
+        return Response()->view('admin.profile');
+    }
+
     public function indexUser()
     {
         return Response()->view('user.index');
@@ -37,7 +40,7 @@ class Controller extends BaseController
         if ($user) {
             Auth::login($user);
             Session::regenerate();
-            if(Auth::user()['role_id'] === 1) {
+            if (Auth::user()['role_id'] === 1) {
                 return redirect('/admin');
             }
             return redirect('/user');
@@ -50,18 +53,5 @@ class Controller extends BaseController
     {
         Auth::logout();
         return redirect('/');
-    }
-    public function getMataKuliah(MataKuliah $matkul)
-    {
-        $getNamaKurikulum = Kurikulum::select(['id', 'nama_kurikulum'])->get();
-        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks'])->get();
-        return Response()->view('admin.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
-    }
-
-    public function getMataKuliahUser(MataKuliah $matkul)
-    {
-        $getNamaKurikulum = Kurikulum::select(['id', 'nama_kurikulum'])->get();
-        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks'])->get();
-        return Response()->view('user.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
     }
 }
