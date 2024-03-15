@@ -24,21 +24,19 @@ class Controller extends BaseController
         return Response()->view('admin.index');
     }
 
-    public function profileAdmin()
-    {
-        return Response()->view('admin.profile');
-    }
-
     public function indexUser()
     {
         return Response()->view('user.index');
     }
     public function userLogin(Request $request)
     {
-        $user = User::where('nrp', $request->input('nrp'))->where('password', $request->input('password'))->first();
+//        $user = User::where('nrp', $request->input('nrp'))->where('password', $request->input('password'))->first();
+        $result = Auth::attempt([
+            'nrp' => $request->input('nrp'),
+            'password' => $request->input('password')
+        ]);
 
-        if ($user) {
-            Auth::login($user);
+        if ($result) {
             Session::regenerate();
             if (Auth::user()['role_id'] === 1) {
                 return redirect('/admin');

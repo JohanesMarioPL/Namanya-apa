@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,13 @@ Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('/admin', [Controller::class, 'indexAdmin']);
     Route::get('/admin/mata-kuliah', [MataKuliahController::class, "getMataKuliah"])->name('admin-mata-kuliah');
     Route::get('/admin/user', [UserController::class, "getUsers"])->name('admin-users');
-    Route::get('/admin/profile', [Controller::class, 'profileAdmin'])->name('admin-profile');
+    Route::get('/admin/profile', [ProfileController::class, 'profileAdmin'])->name('admin-profile');
+    Route::post('/admin/user', [UserController::class, 'addUsers'])->name('add-user');
+    Route::post('/admin/mata-kuliah', [MataKuliahController::class, 'addMatkul'])->name('add-matkul');
 });
 
 Route::get('/user', [Controller::class, "indexUser"]);
 Route::get('/user/mata-kuliah', [MataKuliahController::class, "getMataKuliahUser"])->name('user-mata-kuliah');
+Route::get('/user/profile', [ProfileController::class, 'profileUser'])->name('user-profile');
 Route::get('/logout', [Controller::class, "logout"]);
 

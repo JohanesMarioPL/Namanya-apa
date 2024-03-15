@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="m-4">
-        <a class="btn btn-primary mt-16" href="#" onclick="my_modal_5.showModal()">Tambah Data</a>
+        <a class="btn btn-primary mt-16" onclick="addModal.showModal()">Tambah Data</a>
 
         <table class="table table-zebra mt-10 max-w-screen">
             <thead>
@@ -27,13 +27,8 @@
                             @endif
                         @endforeach
                         <td>
-                            <form class="mb-2" method="post" action="/rental/{{ $u['id'] }}/delete">
-                                @csrf
-                                <button class="badge badge-error text-white">Hapus</button>
-                            </form>
-                            <a href="/rental/{{ $u['id'] }}">
-                                <button class="badge badge-primary">Edit</button>
-                            </a>
+                            <button class="badge badge-error text-white">Hapus</button>
+                            <button class="badge badge-primary" onclick="editModal.showModal()">Edit</button>
                         </td>
                     </tr>
                 @endforeach
@@ -41,56 +36,77 @@
         </table>
     </div>
 
-    <dialog id="my_modal_5" class="modal">
+{{--    Tambah Data Modal --}}
+    <dialog id="addModal" class="modal">
         <div class="modal-box">
-            <h3 class="font-bold text-lg">Hello!</h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
-            <div>
-                <label class="input input-bordered flex items-center gap-2">
-                    <input type="text" class="grow" placeholder="Search" />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                        class="w-4 h-4 opacity-70">
-                        <path fill-rule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </label>
-                <label class="input input-bordered flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                        class="w-4 h-4 opacity-70">
-                        <path
-                            d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                        <path
-                            d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-                    </svg>
-                    <input type="text" class="grow" placeholder="Email" />
-                </label>
-                <label class="input input-bordered flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                        class="w-4 h-4 opacity-70">
-                        <path
-                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                    </svg>
-                    <input type="text" class="grow" placeholder="Username" />
-                </label>
-                <label class="input input-bordered flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                        class="w-4 h-4 opacity-70">
-                        <path fill-rule="evenodd"
-                            d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input type="password" class="grow" value="password" />
-                </label>
-            </div>
-            <div class="modal-action">
-                <form method="dialog">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
-                </form>
-            </div>
+            <h2 class="font-bold text-lg mb-5">Tambah Data User</h2>
+            <form method="post" action="{{route('add-user')}}">
+                <div>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        NRP
+                        <input id="nrp" name="nrp" type="text" class="grow" placeholder="e.g 2272028" />
+                    </label>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        Nama
+                        <input id="name" name="name" type="text" class="grow" placeholder="e. g John Doe" />
+                    </label>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        Email
+                        <input id="email" name="email" type="email" class="grow" placeholder="e.g abc@example" />
+                    </label>
+                    <select id="role_id" name="role_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Choose a Role</option>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
+                    </select>
+                </div>
+                <div class="modal-action">
+                    @csrf
+                    <button class="btn btn-outline btn-primary" type="submit">Tambah Data</button>
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" type="button" onclick="addModal.close()">✕</button>
+                    </form>
+                </div>
+            </form>
         </div>
     </dialog>
+{{--    End Tambah Data Modal--}}
+
+{{--    Edit Data Modal--}}
+    <dialog id="editModal" class="modal">
+        <div class="modal-box">
+            <h2 class="font-bold text-lg mb-5">Edit Data User</h2>
+            <form method="post" action="{{route('add-user')}}">
+                <div>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        NRP
+                        <input id="nrp" name="nrp" type="text" class="grow" placeholder="e.g 2272028" />
+                    </label>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        Nama
+                        <input id="name" name="name" type="text" class="grow" placeholder="e. g John Doe" />
+                    </label>
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        Email
+                        <input id="email" name="email" type="email" class="grow" placeholder="e.g abc@example" />
+                    </label>
+                    <select id="role_id" name="role_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Choose a Role</option>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
+                    </select>
+                </div>
+                <div class="modal-action">
+                    @csrf
+                    <button class="btn btn-outline btn-primary" type="submit">Tambah Data</button>
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" type="button" onclick="editModal.close()">✕</button>
+                    </form>
+                </div>
+            </form>
+        </div>
+    </dialog>
+{{--    End Edit Data Modal--}}
 
 
 @endsection
