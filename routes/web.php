@@ -28,11 +28,17 @@ Route::post('/', [Controller::class, "userLogin"]);
 
 Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('/admin', [Controller::class, 'indexAdmin']);
-    Route::get('/admin/mata-kuliah', [MataKuliahController::class, "getMataKuliah"])->name('admin-mata-kuliah');
-    Route::get('/admin/user', [UserController::class, "getUsers"])->name('admin-users');
-    Route::get('/admin/profile', [ProfileController::class, 'profileAdmin'])->name('admin-profile');
+    Route::get('/prodi', [Controller::class, 'indexProdi']);
+    Route::get('/prodi/mata-kuliah', [MataKuliahController::class, 'getMataKuliah'])->name('prodi-mata-kuliah');
+    Route::post('/prodi/mata-kuliah', [MataKuliahController::class, 'addMataKuliah'])->name('add-mata-kuliah');
+    Route::get('/admin/user', [UserController::class, 'getUsers'])->name('admin-users');
     Route::post('/admin/user', [UserController::class, 'addUsers'])->name('add-user');
-    Route::post('/admin/mata-kuliah', [MataKuliahController::class, 'addMatkul'])->name('add-matkul');
+    Route::get('/admin/{id}/edit', [UserController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/{id}/edit', [UserController::class, 'editUser'])->name('admin.edit-user');
+    Route::get('/admin/{id}/delete', [UserController::class, 'deleteUser'])->name('admin-delete');
+    Route::get('/admin/profile', [ProfileController::class, 'profileAdmin'])->name('admin-profile');
+    Route::get('/prodi/profile', [ProfileController::class, 'profileProdi'])->name('prodi-profile');
+
 });
 
 Route::get('/user', [Controller::class, "indexUser"]);

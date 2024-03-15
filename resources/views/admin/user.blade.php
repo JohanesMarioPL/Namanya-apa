@@ -27,9 +27,24 @@
                             @endif
                         @endforeach
                         <td>
-                            <button class="badge badge-error text-white">Hapus</button>
-                            <button class="badge badge-primary" onclick="editModal.showModal()">Edit</button>
+                            <a class="badge badge-error text-white" onclick="modal_{{$u['id']}}.showModal()">Hapus</a>
+                            <a class="badge badge-primary text-white" href="{{ route('admin.edit', ['id' => $u->id]) }}">Edit</a>
                         </td>
+
+                        {{--    Hapus Data Modal--}}
+                        <dialog id="modal_{{$u['id']}}" class="modal">
+                            <div class="modal-box">
+                                <h3 class="font-bold text-lg">Peringatan!</h3>
+                                <p class="py-4">Ingin menghapus {{$u['name']}} ?</p>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <a href="/admin/{{$u['id']}}/delete" class="btn btn-error">Hapus</a>
+                                        <button class="btn">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                        {{--    End Hapus Data Modal--}}
                     </tr>
                 @endforeach
             </tbody>
@@ -57,7 +72,8 @@
                     <select id="role_id" name="role_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option>Choose a Role</option>
                         <option value="1">Admin</option>
-                        <option value="2">User</option>
+                        <option value="2">Program Studi</option>
+                        <option value="3">User</option>
                     </select>
                 </div>
                 <div class="modal-action">
@@ -71,42 +87,5 @@
         </div>
     </dialog>
 {{--    End Tambah Data Modal--}}
-
-{{--    Edit Data Modal--}}
-    <dialog id="editModal" class="modal">
-        <div class="modal-box">
-            <h2 class="font-bold text-lg mb-5">Edit Data User</h2>
-            <form method="post" action="{{route('add-user')}}">
-                <div>
-                    <label class="input input-bordered flex items-center gap-2 mb-5">
-                        NRP
-                        <input id="nrp" name="nrp" type="text" class="grow" placeholder="e.g 2272028" />
-                    </label>
-                    <label class="input input-bordered flex items-center gap-2 mb-5">
-                        Nama
-                        <input id="name" name="name" type="text" class="grow" placeholder="e. g John Doe" />
-                    </label>
-                    <label class="input input-bordered flex items-center gap-2 mb-5">
-                        Email
-                        <input id="email" name="email" type="email" class="grow" placeholder="e.g abc@example" />
-                    </label>
-                    <select id="role_id" name="role_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option>Choose a Role</option>
-                        <option value="1">Admin</option>
-                        <option value="2">User</option>
-                    </select>
-                </div>
-                <div class="modal-action">
-                    @csrf
-                    <button class="btn btn-outline btn-primary" type="submit">Tambah Data</button>
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" type="button" onclick="editModal.close()">✕</button>
-                    </form>
-                </div>
-            </form>
-        </div>
-    </dialog>
-{{--    End Edit Data Modal--}}
-
 
 @endsection

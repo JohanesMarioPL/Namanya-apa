@@ -24,6 +24,11 @@ class Controller extends BaseController
         return Response()->view('admin.index');
     }
 
+    public function indexProdi()
+    {
+        return Response()->view('prodi.index');
+    }
+
     public function indexUser()
     {
         return Response()->view('user.index');
@@ -40,6 +45,8 @@ class Controller extends BaseController
             Session::regenerate();
             if (Auth::user()['role_id'] === 1) {
                 return redirect('/admin');
+            } else if (Auth::user()['role_id'] === 2) {
+                return redirect('/prodi');
             }
             return redirect('/user');
         } else {

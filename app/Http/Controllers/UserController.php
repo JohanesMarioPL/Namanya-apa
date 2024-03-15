@@ -12,7 +12,7 @@ class UserController extends Controller
     public function getUsers(User $users)
     {
         $getRole = Role::select(['id', 'name'])->get();
-        $users = User::select(['nrp', 'name', 'email', 'role_id'])->get();
+        $users = User::select(['id','nrp', 'name', 'email', 'role_id'])->get();
         return Response()->view('admin.user', ['users' => $users, 'getRole' => $getRole]);
     }
 
@@ -38,31 +38,37 @@ class UserController extends Controller
         return redirect('/admin/user');
     }
 
-    public function editUsers(Request $request, User $user, $id)
+    public function edit(Request $request, $id)
     {
-        $user = User::query()->find($id);
-        $nrp = User::where('nrp', $request->input('nrp'))->first();
-        $email = User::where('email', $request->input('email'))->first();
+        $user = User::where('id', $id)->get();
+//        dd($user);
+        return view('admin.user-edit', ['users' => $user[0]]);
+    }
 
-        if (!empty($nrp) && $user['id'] != $nrp['id']) {
-            if ($user['id'] != $nrp['id']) {
-                return back()->withInput()->withErrors(['error' => 'NRP sudah ada']);
-            }
-        } else if (!empty($email) && $user['id'] != $email['id']) {
-            if ($user['id'] != $email['id']) {
-                return back()->withInput()->withErrors(['error' => 'Email sudah ada']);
-            }
-        }
-        User::where('id', $id)->update([
+    public function editUser(Request $request, $id)
+    {
+        $request->validate([
+            'nrp' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'role_id' => 'required',
+        ]);
+
+      User::where('id', $id)->update([
             'nrp' => $request->input('nrp'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'role_id' => $request->input('role_id'),
-        ]);
+      ]);
 
-        return redirect('/admin/user');
-
+        return redirect()->route('admin-users');
     }
 
+    public function deleteUser(Request $request, User $user, $id)
+    {
+        $user = User::where('id', '=', $id);
+        $user->delete();
+        return redirect()->route('admin.user');
+    }
 
 }

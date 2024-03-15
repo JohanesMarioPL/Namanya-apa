@@ -12,7 +12,7 @@ class MataKuliahController extends Controller
     {
         $getNamaKurikulum = Kurikulum::select(['id', 'nama_kurikulum'])->get();
         $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks'])->get();
-        return Response()->view('admin.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
+        return Response()->view('prodi.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
     }
 
     public function getMataKuliahUser(MataKuliah $matkul)
@@ -40,6 +40,6 @@ class MataKuliahController extends Controller
             ]);
         }
 
-        return redirect('/admin/mata-kuliah');
+        return redirect('/prodi/mata-kuliah');
     }
 }

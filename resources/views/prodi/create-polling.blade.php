@@ -1,5 +1,5 @@
-@extends('layout.admin')
-@section('title', 'Rental PS')
+@extends('layout.prodi')
+@section('title', 'Course Voting - Prodi Create Polling')
 
 @section('content')
     <table class="table mt-16 max-w-screen">

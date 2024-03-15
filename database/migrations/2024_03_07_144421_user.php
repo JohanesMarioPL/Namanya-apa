@@ -21,6 +21,14 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('role');
         });
+
+        DB::table('user')->insert([
+           [    'nrp' => '72001',
+                'name' => 'Admin',
+                'email' => 'admin@maranatha.ac.id',
+                'password' => '12345678',
+                'role_id' => 1],
+        ]);
     }
 
     /**
