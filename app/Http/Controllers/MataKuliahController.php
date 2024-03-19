@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MataKuliah;
 use App\Models\Kurikulum;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
@@ -22,7 +23,7 @@ class MataKuliahController extends Controller
         return Response()->view('user.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
     }
 
-    public function addMatkul(Request $request)
+    public function addMataKuliah(Request $request)
     {
         $id_matkul = MataKuliah::where('id', $request->input('id'))->first();
         $nama_matkul = MataKuliah::where('nama_mata_kuliah', $request->input('nama_mata_kuliah'))->first();
@@ -41,5 +42,38 @@ class MataKuliahController extends Controller
         }
 
         return redirect('/prodi/mata-kuliah');
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $matkul = MataKuliah::where('id', $id)->get();
+//        dd($matkul);
+        return view('prodi.mata-kuliah-edit', ['matkul' => $matkul[0]]);
+    }
+
+    public function editMatkul(Request $request, $id)
+    {
+        $request->validate([
+            'id' => 'required',
+            'nama_mata_kuliah' => 'required',
+            'kurikulum_id' => 'required',
+            'sks' => 'required',
+        ]);
+
+        MataKuliah::where('id', $id)->update([
+            'id' => $request->input('id'),
+            'nama_mata_kuliah' => $request->input('nama_mata_kuliah'),
+            'kurikulum_id' => $request->input('kurikulum_id'),
+            'sks' => $request->input('sks'),
+        ]);
+
+        return redirect()->route('prodi-mata-kuliah');
+    }
+
+    public function deleteMatkul(Request $request, MataKuliah $matkul, $id)
+    {
+        $matkul = MataKuliah::where('id', '=', $id);
+        $matkul->delete();
+        return redirect()->route('prodi-mata-kuliah');
     }
 }

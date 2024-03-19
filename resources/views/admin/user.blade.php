@@ -78,7 +78,7 @@
                 </div>
                 <div class="modal-action">
                     @csrf
-                    <button class="btn btn-outline btn-primary" type="submit">Tambah Data</button>
+                    <button class="btn btn-outline btn-primary" type="submit" id="">Tambah Data</button>
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" type="button" onclick="addModal.close()">✕</button>
                     </form>

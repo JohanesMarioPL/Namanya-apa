@@ -27,13 +27,25 @@
                     @endforeach
                     <td>{{$m['sks']}}</td>
                     <td>
-                        <form class="mb-2" method="post" action="/rental/{{$m['id']}}/delete">
-                            @csrf
-                            <button class="badge badge-error text-white">Hapus</button>
-                        </form>
-                        <a href="/rental/{{$m['id']}}">
-                            <button class="badge badge-primary">Edit</button>
-                        </a>
+                    <td>
+                        <a class="badge badge-error text-white" onclick="modal_{{$m['id']}}.showModal()">Hapus</a>
+                        <a class="badge badge-primary text-white" href="{{ route('prodi.edit', ['id' => $m->id]) }}">Edit</a>
+                    </td>
+
+                    {{--    Hapus Data Modal--}}
+                    <dialog id="modal_{{$m['id']}}" class="modal">
+                        <div class="modal-box">
+                            <h3 class="font-bold text-lg">Peringatan!</h3>
+                            <p class="py-4">Ingin menghapus {{$m['nama_mata_kuliah']}} ?</p>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <a href="/prodi/{{$m['id']}}/delete" class="btn btn-error">Hapus</a>
+                                    <button class="btn">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                    {{--    End Hapus Data Modal--}}
                     </td>
                 </tr>
             @endforeach
@@ -41,6 +53,8 @@
         </table>
     </div>
 
+
+{{--    Add Mata Kuliah--}}
     <dialog id="my_modal_5" class="modal">
         <div class="modal-box">
             <h2 class="font-bold text-lg mb-5">Tambah Data Mata Kuliah!</h2>
@@ -56,8 +70,8 @@
                     </label>
                     <select id="kurikulum_id" name="kurikulum_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5">
                         <option>Choose a Kurikulum</option>
-                        <option value="2013">KRS</option>
-                        <option value="2023">Baru</option>
+                        <option value="2019">KRS</option>
+                        <option value="2022">Baru</option>
                     </select>
                     <select id="sks" name="sks" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5">
                         <option>Choose a SKS</option>
@@ -79,4 +93,5 @@
             </form>
         </div>
     </dialog>
+{{--    End Add Mata Kuliah--}}
 @endsection

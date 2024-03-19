@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css"/>
+{{--    <script type="text/javascript">--}}
+{{--        $(function () {--}}
+{{--           $(document).on('click', '#deleteUser', function (e){--}}
+{{--               e.preventDefault();--}}
+{{--               var link = $(this).attr("href");--}}
+{{--           });--}}
+{{--        });--}}
+{{--    </script>--}}
     <title>@yield('title', 'Course Voting')</title>
     <style>
         #menu-toggle:checked + #menu {

@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css"/>
     <title>@yield('title', 'Course Voting')</title>
     <style>
-        #menu-toggle:checked+#menu {
+        #menu-toggle:checked + #menu {
             display: block;
         }
 
@@ -39,23 +40,29 @@
                     @endif
                 </div>
 
-                <label for="menu-toggle" class="pointer-cursor lg:hidden block"><svg class="fill-current text-gray-900"
-                                                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <label for="menu-toggle" class="pointer-cursor lg:hidden block">
+                    <svg class="fill-current text-gray-900"
+                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                         <title>menu</title>
                         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-                    </svg></label>
-                <input class="hidden" type="checkbox" id="menu-toggle" />
+                    </svg>
+                </label>
+                <input class="hidden" type="checkbox" id="menu-toggle"/>
 
-                <div class="hidden lg:flex lg:items-center lg:pb-0 lg:w-auto lg:gap-5 lg:mb-0 lg:shadow-none lg:px-0 w-full pb-2 px-2 shadow-xl lg:border-b-0 "
-                     id="menu">
+                <div
+                    class="hidden lg:flex lg:items-center lg:pb-0 lg:w-auto lg:gap-5 lg:mb-0 lg:shadow-none lg:px-0 w-full pb-2 px-2 shadow-xl lg:border-b-0 "
+                    id="menu">
                     <div>
                         <nav>
                             <ul class="lg:flex lg:mb-0 items-center justify-between text-base text-gray-700 pt-4 mb-2 lg:pt-0">
-                                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
+                                <li>
+                                    <a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
                                        href="#">Create Polling</a></li>
-                                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
+                                <li>
+                                    <a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
                                        href="{{ route('prodi-mata-kuliah') }}">Mata Kuliah</a></li>
-                                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
+                                <li>
+                                    <a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
                                        href="{{ route('prodi-profile') }}">Profile</a></li>
                                 <!-- <li>
                                                   <a href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
