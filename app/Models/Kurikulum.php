@@ -18,4 +18,6 @@ class Kurikulum extends Model
         'id',
         'nama_kurikulum',
     ];
+
+
 }

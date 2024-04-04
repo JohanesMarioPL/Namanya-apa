@@ -1,5 +1,5 @@
-@extends('layout.admin')
-@section('title', 'Course Voting - Admin Profile')
+@extends('layout.layout')
+@section('title', 'Course Voting - User Profile')
 
 @section('content')
     <div class="hero min-h-screen bg-base-200">
@@ -15,13 +15,13 @@
                         <label class="label">
                             <span class="label-text">NRP</span>
                         </label>
-                        <input type="text" class="input input-bordered" disabled value="{{$user['nrp']}}">
+                        <input type="text" class="input input-bordered" disabled value="<?= Auth::user()->nrp ?>">
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Nama</span>
                         </label>
-                        <input type="text" class="input input-bordered" disabled value="{{$user['name']}}">
+                        <input type="text" class="input input-bordered" disabled value="<?= Auth::user()->name ?>">
                         <label class="label">
                         </label>
                     </div>
@@ -29,7 +29,7 @@
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input type="email" class="input input-bordered" disabled value="{{$user['email']}}">
+                        <input type="email" class="input input-bordered" disabled value="<?= Auth::user()->email ?>">
                         <label class="label">
                         </label>
                     </div>
@@ -37,7 +37,7 @@
                         <label class="label">
                             <span class="label-text">Role</span>
                         </label>
-                        <input type="text" class="input input-bordered" disabled value="{{$user['role']['name']}}">
+                        <input type="text" class="input input-bordered" disabled value="<?= Auth::user()->role->name ?>">
                         <label class="label">
                         </label>
                     </div>

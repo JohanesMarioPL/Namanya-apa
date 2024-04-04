@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css"/>
+{{--    <script type="text/javascript">--}}
+{{--        $(function () {--}}
+{{--           $(document).on('click', '#deleteUser', function (e){--}}
+{{--               e.preventDefault();--}}
+{{--               var link = $(this).attr("href");--}}
+{{--           });--}}
+{{--        });--}}
+{{--    </script>--}}
     <title>@yield('title', 'Course Voting')</title>
     <style>
         #menu-toggle:checked + #menu {
@@ -41,7 +50,7 @@
                             <ul class="lg:flex lg:mb-0 items-center justify-between text-base text-gray-700 pt-4 mb-2 lg:pt-0">
                                 <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400" href="#">Polling</a></li>
                                 <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400" href="{{route('user-mata-kuliah')}}">Mata Kuliah</a></li>
-                                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400" href="#">Profile</a></li>
+                                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400" href="{{route('user-profile')}}">Profile</a></li>
                                 <!-- <li>
             <a href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
               <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">

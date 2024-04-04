@@ -1,5 +1,5 @@
-@extends('layout.admin')
-@section('title', 'Course Voting - Admin Profile')
+@extends('layout.prodi')
+@section('title', 'Course Voting - Prodi Profile')
 
 @section('content')
     <div class="hero min-h-screen bg-base-200">

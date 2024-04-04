@@ -3,14 +3,12 @@
 
 @section('content')
     <div class="m-4">
-        <a class="btn btn-primary mt-16" href="#">Tambah Data</a>
-
         <table class="table table-zebra mt-10 max-w-screen">
             <thead>
             <tr>
                 <th scope="col">ID Mata Kuliah</th>
                 <th scope="col">Nama Mata Kuliah</th>
-                <th scope="col">Kurikulum ID</th>
+                <th scope="col">Kurikulum</th>
                 <th scope="col">SKS</th>
                 <th scope="col">Action</th>
             </tr>

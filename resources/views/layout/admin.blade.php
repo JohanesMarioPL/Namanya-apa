@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
     <title>@yield('title', 'Course Voting')</title>
     <style>
@@ -52,11 +53,7 @@
         <nav>
             <ul class="lg:flex lg:mb-0 items-center justify-between text-base text-gray-700 pt-4 mb-2 lg:pt-0">
                 <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
-                        href="#">Create Polling</a></li>
-                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
                         href="{{ route('admin-users') }}">User</a></li>
-                <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
-                        href="{{ route('admin-mata-kuliah') }}">Mata Kuliah</a></li>
                 <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
                         href="{{ route('admin-profile') }}">Profile</a></li>
                 <!-- <li>

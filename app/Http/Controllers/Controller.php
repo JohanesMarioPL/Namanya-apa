@@ -24,9 +24,9 @@ class Controller extends BaseController
         return Response()->view('admin.index');
     }
 
-    public function profileAdmin()
+    public function indexProdi()
     {
-        return Response()->view('admin.profile');
+        return Response()->view('prodi.index');
     }
 
     public function indexUser()
@@ -35,13 +35,18 @@ class Controller extends BaseController
     }
     public function userLogin(Request $request)
     {
-        $user = User::where('nrp', $request->input('nrp'))->where('password', $request->input('password'))->first();
+//        $user = User::where('nrp', $request->input('nrp'))->where('password', $request->input('password'))->first();
+        $result = Auth::attempt([
+            'nrp' => $request->input('nrp'),
+            'password' => $request->input('password')
+        ]);
 
-        if ($user) {
-            Auth::login($user);
+        if ($result) {
             Session::regenerate();
             if (Auth::user()['role_id'] === 1) {
                 return redirect('/admin');
+            } else if (Auth::user()['role_id'] === 2) {
+                return redirect('/prodi');
             }
             return redirect('/user');
         } else {

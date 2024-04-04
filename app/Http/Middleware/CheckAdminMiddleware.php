@@ -18,6 +18,8 @@ class CheckAdminMiddleware
     {
         if (Auth::check() && Auth::user()->isAdmin()) {
             return $next($request);
+        } else if (Auth::check() && Auth::user()->isProdi()) {
+            return $next($request);
         } else {
             return redirect()->back();
         }
