@@ -30,7 +30,32 @@
                             @endif
                         @endforeach
                         <td>{{$p['pollling_date']}}</td>
+
+                        <td>
+                        <td>
+                            <a class="badge badge-error text-white" onclick="modal_{{$p['polling_id']}}.showModal()">Hapus</a>
+                            <a class="badge badge-primary text-white" href="{{ route('prodi.editPoll', ['polling_id' => $p['polling_id']]) }}">Edit</a>
+                        </td>
+
+                        {{--    Hapus Data Modal--}}
+                        <dialog id="modal_{{$p['polling_id']}}" class="modal">
+                            <div class="modal-box">
+                                <h3 class="font-bold text-lg">Peringatan!</h3>
+                                <p class="py-4">Ingin menghapus {{$p['polling_id']}} ?</p>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <a href="/prodi/{{$p['polling_id']}}/delete" class="btn btn-error">Hapus</a>
+                                        <button class="btn">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                        {{--    End Hapus Data Polling  --}}
+                        </td>
+
                     </tr>
+
+
     @endforeach
                 </tbody>
             </table>
@@ -43,6 +68,7 @@
             <h2 class="font-bold text-lg mb-5">Tambah Data Polling!</h2>
                 <form method="post" action="{{route('add-polling')}}">
                     <div>
+
                         {{-- Id Polling --}}
                         <label class="input input-bordered flex items-center gap-2 mb-5">
                             ID Polling
@@ -73,7 +99,11 @@
                     </div>
                 </form>
         </div>
+
+
     </dialog>
+
+
     {{--    End Add Mata Kuliah--}}
 
 @endsection

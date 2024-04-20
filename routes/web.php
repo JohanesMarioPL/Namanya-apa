@@ -45,6 +45,9 @@ Route::middleware(['CheckAdmin'])->group(function() {
 //      Polling
     Route::get('/prodi/create-polling', [PollingController::class, 'getPollings'])->name('prodi-polling');
     Route::post('/prodi/create-polling', [PollingController::class, 'addPolling'])->name('add-polling');
+    Route::get('/prodi/{polling_id}/editPoll', [PollingController::class, 'editPoll'])->name('prodi.editPoll');
+    Route::post('/prodi/{polling_id}/editPoll', [PollingController::class, 'editPolling'])->name('prodi.edit-polling');
+    Route::get('/prodi/{polling_id}/delete', [PollingController::class, 'deletePolling'])->name('polling-delete');
 
 //    Mata Kuliah
     Route::get('/prodi/mata-kuliah', [MataKuliahController::class, 'getMataKuliah'])->name('prodi-mata-kuliah');
