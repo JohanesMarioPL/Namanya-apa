@@ -14,18 +14,23 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($matkul as $m)
-                <tr>
-                    <td>{{$m['id']}}</td>
-                    <td>{{$m['nama_mata_kuliah']}}</td>
-                    @foreach($getNamaKurikulum as $gnk)
-                        @if($gnk['id'] == $m['kurikulum_id'])
-                            <td>{{$gnk['nama_kurikulum']}}</td>
-                        @endif
+            @foreach($getProdi as $p)
+                @if(Auth::user()->prodi_id == $p['id'])
+                    @foreach($matkul as $m)
+                        <tr>
+                            @if(Auth::user()->prodi_id == $m['prodi_id'])
+                                <td>{{$m['id']}}</td>
+                                <td>{{$m['nama_mata_kuliah']}}</td>
+                                @foreach($getNamaKurikulum as $gnk)
+                                    @if($gnk['id'] == $m['kurikulum_id'])
+                                        <td>{{$gnk['nama_kurikulum']}}</td>
+                                        <td>{{$m['sks']}}</td>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </tr>
                     @endforeach
-                    <td>{{$m['sks']}}</td>
-
-                </tr>
+                @endif
             @endforeach
             </tbody>
         </table>
