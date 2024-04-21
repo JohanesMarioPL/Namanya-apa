@@ -15,6 +15,10 @@ return new class extends Migration
             $table->string('id', 256)->primary();
             $table->string('nama_kurikulum');
         });
+        DB::table('kurikulum')->insert([
+            [ 'id' => '2019', 'nama_kurikulum' => 'lama'],
+            [ 'id' => '2022', 'nama_kurikulum' => 'baru']
+        ]);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\ProdiController;
 
 /*
 |--------------------------------------------------------------------------

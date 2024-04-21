@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'email' => $nrp . $emailDomain,
             'password' => bcrypt('12345678'),
             'role_id' => 3,
+            'prodi_id' => 1,
         ];
     }
 

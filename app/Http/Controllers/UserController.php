@@ -12,7 +12,7 @@ class UserController extends Controller
     public function getUsers(User $users)
     {
         $getRole = Role::select(['id', 'name'])->get();
-        $users = User::select(['id','nrp', 'name', 'email', 'role_id'])->get();
+        $users = User::select(['id','nrp', 'name', 'email', 'role_id', 'prodi_id'])->get();
         return Response()->view('admin.user', ['users' => $users, 'getRole' => $getRole]);
     }
 

@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
+        Schema::create('prodi', function (Blueprint $table) {
             $table->smallInteger('id')->primary();
-            $table->string('name');
+            $table->string('nama_prodi');
             $table->timestamps();
         });
 
-        DB::table('role')->insert([
-            ['id' => 1, 'name' => 'admin'],
-            ['id' => 2, 'name' => 'prodi'],
-            ['id' => 3, 'name' => 'user']
+        DB::table('prodi')->insert([
+            ['id' => 0, 'nama_prodi' => 'admin'],
+            ['id' => 1, 'nama_prodi' => 'S1 Teknik Informatika'],
+            ['id' => 2, 'nama_prodi' => 'S1 Sistem Informasi']
         ]);
     }
-
-
 
     /**
      * Reverse the migrations.

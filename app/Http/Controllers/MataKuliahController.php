@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MataKuliah;
 use App\Models\Kurikulum;
 use App\Models\User;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
@@ -18,9 +19,11 @@ class MataKuliahController extends Controller
 
     public function getMataKuliahUser(MataKuliah $matkul)
     {
+        $getUser = User::select(['prodi_id'])->get();
+        $getProdi = Prodi::select(['id'])->get();
         $getNamaKurikulum = Kurikulum::select(['id', 'nama_kurikulum'])->get();
-        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks'])->get();
-        return Response()->view('user.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
+        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks', 'prodi_id'])->get();
+        return Response()->view('user.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum, 'getProdi' => $getProdi, 'getUser' => $getUser]);
     }
 
     public function addMataKuliah(Request $request)
