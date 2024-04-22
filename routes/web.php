@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\PollingDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::middleware(['CheckAdmin'])->group(function() {
 
     Route::get('/prodi', [Controller::class, 'indexProdi']);
     Route::get('/prodi/{id}/edit', [MataKuliahController::class, 'edit'])->name('prodi.edit');
+
+    // Polling Detail
+    Route::get('prodi/create-polling-view',[PollingDetailController::class, 'getPolDetail'])->name('prodi-polling-detail');
+
 //      Polling
     Route::get('/prodi/create-polling', [PollingController::class, 'getPollings'])->name('prodi-polling');
     Route::post('/prodi/create-polling', [PollingController::class, 'addPolling'])->name('add-polling');
@@ -71,5 +76,7 @@ Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('user/kurikulum',[KurikulumController::class,'getKurikulumUser'])->name('user-kurikulum');
     Route::get('/user/profile', [ProfileController::class, 'profileUser'])->name('user-profile');
     Route::get('/logout', [Controller::class, "logout"]);
+    Route::get('user/polling-view',[PollingDetailController::class, 'getPolDetailUser'])->name('user-polling-detail');
+    Route::get('user/user-vote-polling',[PollingDetailController::class, 'getVoteUser'])->name('user-voting-detail');
 
 

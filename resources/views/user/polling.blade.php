@@ -1,4 +1,4 @@
-@extends('layout.prodi')
+@extends('layout.layout')
 @section('title', 'Course Voting - Prodi Mata Kuliah')
 
 @section('content')
@@ -23,8 +23,8 @@
                         @endif
                     @endforeach
                     <td>
-                        <a class="badge badge-error text-white">Vote</a>
-                        <a class="badge badge-primary text-white" href="">View</a>
+                        <a class="badge badge-error text-white" href={{route('user-voting-detail')}}>Vote</a>
+                        <a class="badge badge-primary text-white" href="{{ route('user-polling-detail') }}">View</a>
                     </td>
                 </tr>
 

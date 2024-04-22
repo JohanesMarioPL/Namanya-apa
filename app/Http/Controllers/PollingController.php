@@ -81,4 +81,5 @@ class PollingController extends Controller
         $pollings->delete();
         return redirect()->route('prodi-polling');
     }
+
 }
