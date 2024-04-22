@@ -67,8 +67,8 @@ Route::middleware(['CheckAdmin'])->group(function() {
 //    User
     Route::get('/user', [Controller::class, "indexUser"]);
     Route::get('/user/mata-kuliah', [MataKuliahController::class, "getMataKuliahUser"])->name('user-mata-kuliah');
-    Route::get('/user/polling', [PollingController::class, "getPollingsusers"])->name('user-polling');
-    Route::get('user/kurikulum',[KurikulumController::class,'getKurikulumUser'])->name('user.kurikulum');
+    Route::get('/user/polling', [PollingController::class, 'getPollingUser'])->name('polling');
+    Route::get('user/kurikulum',[KurikulumController::class,'getKurikulumUser'])->name('user-kurikulum');
     Route::get('/user/profile', [ProfileController::class, 'profileUser'])->name('user-profile');
     Route::get('/logout', [Controller::class, "logout"]);
 

@@ -15,9 +15,10 @@ class Polling extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'polling_id',
-        'polling_date',
-        'matakuliah_id',
+        'id',
+        'poll_name',
+        'end_date',
+        'prodi_id',
     ];
 
 }
