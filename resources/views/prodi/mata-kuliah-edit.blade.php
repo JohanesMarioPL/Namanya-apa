@@ -31,6 +31,12 @@
                         <input id="sks" name="sks" type="text" class="grow" value="{{$matkul['sks']}}" />
                     </label>
                 </div>
+                <div class="form-control">
+                    <label class="input input-bordered flex items-center gap-2 mb-5">
+                        Program Studi
+                        <input id="prodi_id" name="prodi_id" type="text" class="grow" value="{{$getProdi['nama_prodi']}}" />
+                    </label>
+                </div>
                 <div class="form-control mt-6">
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </div>

@@ -20,6 +20,7 @@ class MataKuliah extends Model
         'nama_mata_kuliah',
         'kurikulum_id',
         'sks',
+        'prodi_id',
     ];
 
 }

@@ -13,8 +13,9 @@ class MataKuliahController extends Controller
     public function getMataKuliah(MataKuliah $matkul)
     {
         $getNamaKurikulum = Kurikulum::select(['id', 'nama_kurikulum'])->get();
-        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks'])->get();
-        return Response()->view('prodi.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum]);
+        $getNamaProgramStudi = Prodi::select(['id', 'nama_prodi'])->get();
+        $matkul = MataKuliah::select(['id','nama_mata_kuliah','kurikulum_id', 'sks','prodi_id'])->get();
+        return Response()->view('prodi.mata-kuliah', ['matkul' => $matkul, 'getNamaKurikulum' => $getNamaKurikulum, 'getNamaProgramStudi' => $getNamaProgramStudi]);
     }
 
     public function getMataKuliahUser(MataKuliah $matkul)
@@ -40,7 +41,9 @@ class MataKuliahController extends Controller
                 'id' => $request->input('id'),
                 'nama_mata_kuliah' => $request->input('nama_mata_kuliah'),
                 'kurikulum_id' => $request->input('kurikulum_id'),
-                'sks' => $request->input('sks')
+                'sks' => $request->input('sks'),
+                'prodi_id' => $request->input('prodi_id')
+
             ]);
         }
 
@@ -50,8 +53,9 @@ class MataKuliahController extends Controller
     public function edit(Request $request, $id)
     {
         $matkul = MataKuliah::where('id', $id)->get();
+        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
 //        dd($matkul);
-        return view('prodi.mata-kuliah-edit', ['matkul' => $matkul[0]]);
+        return view('prodi.mata-kuliah-edit', ['matkul' => $matkul[0], 'getProdi' => $getProdi]);
     }
 
     public function editMatkul(Request $request, $id)
@@ -61,6 +65,7 @@ class MataKuliahController extends Controller
             'nama_mata_kuliah' => 'required',
             'kurikulum_id' => 'required',
             'sks' => 'required',
+            'prodi_id' => 'required',
         ]);
 
         MataKuliah::where('id', $id)->update([
@@ -68,6 +73,7 @@ class MataKuliahController extends Controller
             'nama_mata_kuliah' => $request->input('nama_mata_kuliah'),
             'kurikulum_id' => $request->input('kurikulum_id'),
             'sks' => $request->input('sks'),
+            'prodi_id' => $request->input('prodi_id'),
         ]);
 
         return redirect()->route('prodi-mata-kuliah');

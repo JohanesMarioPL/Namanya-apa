@@ -12,15 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('polling_detail', function (Blueprint $table) {
-            $table->id();
-            $table->string('polling_id');
-            $table->smallInteger('prodi_id');
-            $table->string('mata_kuliah_id');
+            $table->string('polling_detail_id')->primary();
+            $table->string('polling_id')->foreign('polling_id')->references('polling_id')->on('polling');
+            $table->string('mata_kuliah_id')->foreign('mata_kuliah_id')->references('id')->on('mata_kuliah');
             $table->integer('rating');
             $table->timestamps();
-            $table->foreign('prodi_id')->references('id')->on('prodi');
-            $table->foreign('mata_kuliah_id')->references('id')->on('mata_kuliah');
-            $table->foreign('polling_id')->references('id')->on('polling');
         });
     }
 

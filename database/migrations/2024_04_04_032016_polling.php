@@ -12,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('polling', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('poll_name');
-            $table->date('end_date');
-            $table->smallInteger('prodi_id');
+            $table->string('polling_id')->primary();
+            $table->date('polling_date');
+            $table->string('matakuliah_id')->foreign('matakuliah_id')->references('id')->on('mata_kuliah');
             $table->timestamps();
-            $table->foreign('prodi_id')->references('id')->on('prodi');
         });
     }
 

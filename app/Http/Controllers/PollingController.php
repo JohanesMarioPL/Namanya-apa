@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Polling;
 use App\Models\Matakuliah;
-use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 
@@ -14,35 +13,40 @@ class PollingController extends Controller
 
     public function getPollings(Polling $pollings)
     {
-        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
-        $pollings = Polling::select(['id','poll_name','end_date', 'prodi_id'])->get();
+        $getNamaMataKuliah = Matakuliah::select(['id', 'nama_mata_kuliah'])->get();
+        $getSKSMataKuliah = Matakuliah::select(['id', 'sks'])->get();
+        $pollings = Polling::select(['polling_id','polling_date','matakuliah_id'])->get();
         return Response()->view('prodi.create-polling',
             ['pollings' => $pollings,
-            'getProdi' => $getProdi]);
+            'getNamaMataKuliah' => $getNamaMataKuliah,
+            'getSKSMataKuliah' => $getSKSMataKuliah]);
 
     }
 
-    public function getPollingUser()
+    public function getPollingsusers(Polling $pollings)
     {
-        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
-        $pollings = Polling::select(['id','poll_name','end_date', 'prodi_id'])->get();
-        return response()->view('user.polling',
+        $getNamaMataKuliah = Matakuliah::select(['id', 'nama_mata_kuliah'])->get();
+        $getSKSMataKuliah = Matakuliah::select(['id', 'sks'])->get();
+        $pollings = Polling::select(['polling_id','polling_date','matakuliah_id'])->get();
+        return Response()->view('prodi.create-polling',
             ['pollings' => $pollings,
-                'getProdi' => $getProdi]);
+                'getNamaMataKuliah' => $getNamaMataKuliah,
+                'getSKSMataKuliah' => $getSKSMataKuliah]);
+
     }
+
 
     public function addPolling(Request $request)
     {
-        $id_polling = Polling::where('id', $request->input('id'))->first();
+        $id_polling = Polling::where('polling_id', $request->input('polling_id'))->first();
 
         if (!empty($id_polling)) {
             return back()->withInput()->withErrors(['error' => 'ID Polling sudah ada!']);
         } else {
             Polling::create([
-                'id' => $request->input('id'),
-                'poll_name' => $request->input('poll_name'),
-                'end_date' => $request->input('end_date'),
-                'prodi_id' => $request->input('prodi_id')
+                'polling_id' => $request->input('polling_id'),
+                'polling_date' => $request->input('polling_date'),
+                'matakuliah_id' => $request->input('matakuliah_id')
             ]);
         }
 
@@ -51,35 +55,33 @@ class PollingController extends Controller
 
     public function editPoll(Request $request, $id)
     {
-        $pollings = Polling::where('id', $id)->get();
-        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
+        $pollings = Polling::where('polling_id', $id)->get();
+        $getNamaMataKuliah = Matakuliah::select(['id', 'nama_mata_kuliah'])->get();
 
         return view('prodi.create-polling-edit', ['pollings' => $pollings[0]],
-            ['getProdi' => $getProdi,]);
+            ['getNamaMataKuliah' => $getNamaMataKuliah,]);
     }
 
     public function editPolling(Request $request, $id)
     {
         $request->validate([
-            'poll_name' => 'required',
-            'end_date' => 'required',
-            'prodi_id' => 'required'
+            'polling_id' => 'required',
+            'polling_date' => 'required',
+            'matakuliah_id' => 'required'
         ]);
 
-        Polling::where('id', $id)->update([
-            'id' => $request->input('id'),
-            'poll_name' => $request->input('poll_name'),
-            'end_date' => $request->input('end_date'),
-            'prodi_id' => $request->input('prodi_id')
+        Polling::where('polling_id', $id)->update([
+            'polling_id' => $request->input('polling_id'),
+            'polling_date' => $request->input('polling_date'),
+            'matakuliah_id' => $request->input('matakuliah_id')
         ]);
 
         return redirect()->route('prodi-polling');
     }
     public function deletePolling(Request $request, Polling $pollings, $id)
     {
-        $pollings = Polling::where('id', '=', $id);
+        $pollings = Polling::where('polling_id', '=', $id);
         $pollings->delete();
         return redirect()->route('prodi-polling');
     }
-
 }
