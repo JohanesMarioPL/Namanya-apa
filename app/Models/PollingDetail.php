@@ -18,7 +18,8 @@ class PollingDetail extends Model
         'polling_detail_id',
         'polling_id',
         'mata_kuliah_id',
-        'rating',
+        'prodi_id',
+        'user_nrp'
     ];
 
 }

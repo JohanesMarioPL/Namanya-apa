@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = "user";
-    protected $primaryKey = "id";
+    protected $primaryKey = "nrp";
     protected $keyType = "string";
     public $incrementing = false;
     public $timestamps = true;
@@ -24,7 +24,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nrp',
         'name',
         'email',
         'password',

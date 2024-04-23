@@ -15,7 +15,7 @@ class PollingDetailController extends Controller
     public function getPolDetail(Request $request, $id)
     {
         $pollings = Polling::select(['id', 'poll_name', 'prodi_id'])->where('id', $id)->first();
-        $getUser = User::select(['id', 'nrp'])->get();
+        $getUser = User::select(['nrp'])->get();
         $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah', 'prodi_id'])
             ->where('prodi_id', $pollings->prodi_id)
             ->get();
@@ -39,7 +39,7 @@ class PollingDetailController extends Controller
 
     public function getPolDetailUser()
     {
-        $getUser = user::select(['id','nrp'])->get();
+        $getUser = user::select(['nrp'])->get();
         $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah'])->get();
         $pollings = Polling::select(['id','poll_name','end_date', 'prodi_id'])->get();
         $getProdi = Prodi::select(['id','nama_prodi'])->get();
@@ -75,16 +75,15 @@ class PollingDetailController extends Controller
             foreach ($getMatkul as $matkul) {
                 if ($p == $matkul['id']) {
                     PollingDetail::create([
-                        'nama_mata_kuliah' => $matkul->nama_mata_kuliah,
-                        'kurikulum_id' => $matkul->kurikulum_id,
-                        'prodi_id' => $matkul->prodi_id,
-                        'sks' => $matkul->sks,
                         'polling_id' => $id,
+                        'mata_kuliah_id' => $matkul->id,
+                        'user_nrp' => Auth::user()->nrp,
+                        'prodi_id' => $matkul->prodi_id
                     ]);
                 }
             }
         }
-        return response()->json(['success' => true]);
+        return redirect()->route('user-polling-detail');
     }
 
     public function deletePollingDetail(Request $request, PollingDetail $pollingDetail, $id)

@@ -9,7 +9,7 @@
                     @csrf
                     <div>
                         @foreach($getMatkul as $m)
-                            <input type="checkbox" id="matkul{{ $m['id'] }}" class="matakuliah-checkbox" name="matakuliah[]" value="{{ $m['id'] }}">
+                            <input type="checkbox" id="matkul{{ $m['id'] }}" class="matakuliah-checkbox" name="selectedValues[]" value="{{ $m['id'] }}">
                             <label for="matkul{{ $m['id'] }}">{{ $m['nama_mata_kuliah'] }}</label><br>
                         @endforeach
                     </div>
@@ -22,35 +22,46 @@
 @endsection
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#voting-form').on('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission behavior
+        document.getElementById('voting-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
 
-                let selectedValues = [];
+            var selectedValues = [];
+            var checkboxes = document.getElementsByName('selectedValues[]');
 
-                $('.matakuliah-checkbox:checked').each(function() {
-                    selectedValues.push($(this).val());
-                });
-
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'), // Use the form's action attribute as the URL
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "selectedValues": selectedValues
-                    },
-                    success: function(response) {
-                        console.log('Response from server:', response);
-                        // Redirect to user-polling-detail route if needed
-                        // window.location.href = '{{ route("user-polling-detail") }}';
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedValues.push(checkbox.value);
+                }
             });
+
+            if (selectedValues.length === 0) {
+                // No checkbox is checked
+                return; // Exit function
+            }
+
+            var formData = new FormData();
+            selectedValues.forEach(function(value) {
+                formData.append('selectedValues[]', value);
+            });
+
+            fetch('{{ route("user-voting-submit", ["polling_id" => $pollings["id"]]) }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-Token': '{{ csrf_token() }}'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = 'user/polling-view';
+                    } else {
+                        // Handle error
+                    }
+                })
+                .catch(error => {
+                    // Handle error
+                });
         });
     </script>
 @endsection
