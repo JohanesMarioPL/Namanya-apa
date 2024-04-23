@@ -35,9 +35,9 @@ Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('/admin', [Controller::class, 'indexAdmin']);
     Route::get('/admin/user', [UserController::class, 'getUsers'])->name('admin-users');
     Route::post('/admin/user', [UserController::class, 'addUsers'])->name('add-user');
-    Route::get('/admin/{id}/edit', [UserController::class, 'edit'])->name('admin.edit');
-    Route::post('/admin/{id}/edit', [UserController::class, 'editUser'])->name('admin.edit-user');
-    Route::get('/admin/{id}/delete', [UserController::class, 'deleteUser'])->name('admin-delete');
+    Route::get('/admin/{nrp}/edit', [UserController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/{nrp}/edit', [UserController::class, 'editUser'])->name('admin.edit-user');
+    Route::delete('/admin/{nrp}/delete', [UserController::class, 'deleteUser'])->name('delete-user');
     Route::get('/admin/profile', [ProfileController::class, 'profileAdmin'])->name('admin-profile');
 
 //    Program Studi

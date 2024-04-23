@@ -3,8 +3,14 @@
 
 @section('content')
     <div class="m-4">
-        <a class="btn btn-primary mt-16" onclick="my_modal_5.showModal()">Tambah Data</a>
-
+        <div class="flex flex-col">
+            <a class="btn btn-primary mt-16 w-40" onclick="my_modal_5.showModal()">Tambah Data</a>
+            <div class="mt-2"></div>
+            <label class="input input-bordered flex items-center gap-2 w-40">
+                <input id="searchInput" type="text" class="w-full" placeholder="Search" oninput="searchUser(this.value)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+            </label>
+        </div>
         <table class="table table-zebra mt-10 max-w-screen">
             <thead>
             <tr>
@@ -104,5 +110,22 @@
             </form>
         </div>
     </dialog>
+    <script>
+        function searchUser(keyword) {
+            keyword = keyword.toLowerCase();
+            const rows = document.querySelectorAll("table.table tbody tr");
+
+            rows.forEach(row => {
+                const id = row.cells[0].textContent.toLowerCase();
+                const nama_mata_kuliah = row.cells[1].textContent.toLowerCase();
+
+                if (id.includes(keyword) || nama_mata_kuliah.includes(keyword)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
     {{--    End Add Mata Kuliah--}}
 @endsection

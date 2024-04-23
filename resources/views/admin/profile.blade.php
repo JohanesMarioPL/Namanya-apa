@@ -6,8 +6,6 @@
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">Your Profile!</h1>
-                <p class="py-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti reiciendis nulla
-                    expedita. Expedita explicabo et</p>
             </div>
             <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form class="card-body">

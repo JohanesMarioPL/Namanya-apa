@@ -4,7 +4,7 @@
 @section('content')
     <div class="hero min-h-screen bg-base-200">
     <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form class="card-body" action="{{route('admin.edit-user', ['id' => $users['id']])}}" method="post">
+        <form class="card-body" action="{{route('admin.edit-user', ['nrp' => $users['nrp']])}}" method="post">
             @csrf
             <div class="form-control">
                 <label class="input input-bordered flex items-center gap-2 mb-5">

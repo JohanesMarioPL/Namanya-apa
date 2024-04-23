@@ -13,7 +13,7 @@
                 <form class="card-body">
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">NRP</span>
+                            <span class="label-text">NIK/NRP</span>
                         </label>
                         <input type="text" class="input input-bordered" disabled value="<?= Auth::user()->nrp ?>">
                     </div>

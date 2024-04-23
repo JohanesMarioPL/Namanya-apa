@@ -12,40 +12,42 @@ class UserController extends Controller
     public function getUsers(User $users)
     {
         $getRole = Role::select(['id', 'name'])->get();
-        $users = User::select(['id','nrp', 'name', 'email', 'role_id', 'prodi_id'])->get();
+        $users = User::select(['nrp', 'name', 'email', 'role_id', 'prodi_id'])->get();
         return Response()->view('admin.user', ['users' => $users, 'getRole' => $getRole]);
     }
 
     public function addUsers(Request $request)
     {
-        $nrp = User::where('nrp', $request->input('nrp'))->first();
-        $email = User::where('email', $request->input('email'))->first();
+        $existingNrp = User::where('nrp', $request->input('nrp'))->first();
+        $existingEmail = User::where('email', $request->input('email'))->first();
 
-        if (!empty($nrp)) {
+        if ($existingNrp) {
             return back()->withInput()->withErrors(['error' => 'NRP sudah ada']);
-        } else if (!empty($email)) {
+        } elseif ($existingEmail) {
             return back()->withInput()->withErrors(['error' => 'Email sudah ada']);
         } else {
             User::create([
-                'nrp' => $request->input('nrp'),
+                'nrp' => $request->input('nrp'), // Use the value from the request
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'prodi_id' => $request->input('prodi'),
                 'password' => Hash::make('12345678'),
                 'role_id' => $request->input('role_id')
             ]);
         }
 
+
         return redirect('/admin/user');
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $nrp)
     {
-        $user = User::where('id', $id)->get();
+        $user = User::where('nrp', $nrp)->get();
 //        dd($user);
         return view('admin.user-edit', ['users' => $user[0]]);
     }
 
-    public function editUser(Request $request, $id)
+    public function editUser(Request $request, $nrp)
     {
         $request->validate([
             'nrp' => 'required',
@@ -54,7 +56,7 @@ class UserController extends Controller
             'role_id' => 'required',
         ]);
 
-      User::where('id', $id)->update([
+      User::where('nrp', $nrp)->update([
             'nrp' => $request->input('nrp'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -64,11 +66,17 @@ class UserController extends Controller
         return redirect()->route('admin-users');
     }
 
-    public function deleteUser(Request $request, User $user, $id)
+    public function deleteUser(Request $request, $nrp)
     {
-        $user = User::where('id', '=', $id);
+        $user = User::where('nrp', $nrp)->first(); // Menggunakan 'first()' untuk mengambil satu pengguna
+
+        if (!$user) {
+            return redirect()->route('admin-users')->with('error', 'User not found');
+        }
+
         $user->delete();
-        return redirect()->route('admin-users');
+
+        return redirect()->route('admin-users')->with('success', 'User deleted successfully');
     }
 
 }
