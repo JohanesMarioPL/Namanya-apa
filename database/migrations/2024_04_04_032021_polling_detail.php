@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('polling_id');
             $table->smallInteger('prodi_id');
             $table->string('mata_kuliah_id');
-            $table->integer('rating');
+            $table->string('user_nrp');
             $table->timestamps();
             $table->foreign('prodi_id')->references('id')->on('prodi');
             $table->foreign('mata_kuliah_id')->references('id')->on('mata_kuliah');
             $table->foreign('polling_id')->references('id')->on('polling');
+            $table->foreign('user_nrp')->references('nrp')->on('user');
         });
     }
 

@@ -17,35 +17,37 @@
             </thead>
             <tbody>
                 @foreach ($users as $u)
-                    <tr>
-                        <td>{{ $u['nrp'] }}</td>
-                        <td>{{ $u['name'] }}</td>
-                        <td>{{ $u['email'] }}</td>
-                        @foreach ($getRole as $gr)
-                            @if ($gr['id'] == $u['role_id'])
-                                <td>{{ $gr['name'] }}</td>
-                            @endif
-                        @endforeach
-                        <td>
-                            <a class="badge badge-error text-white" onclick="modal_{{$u['id']}}.showModal()">Hapus</a>
-                            <a class="badge badge-primary text-white" href="{{ route('admin.edit', ['id' => $u->id]) }}">Edit</a>
-                        </td>
+                    @if(Auth::user()->id != $u['id'])
+                        <tr>
+                            <td>{{ $u['nrp'] }}</td>
+                            <td>{{ $u['name'] }}</td>
+                            <td>{{ $u['email'] }}</td>
+                            @foreach ($getRole as $gr)
+                                @if ($gr['id'] == $u['role_id'])
+                                    <td>{{ $gr['name'] }}</td>
+                                @endif
+                            @endforeach
+                            <td>
+                                <a class="badge badge-error text-white" onclick="modal_{{$u['id']}}.showModal()">Hapus</a>
+                                <a class="badge badge-primary text-white" href="{{ route('admin.edit', ['id' => $u->id]) }}">Edit</a>
+                            </td>
 
-                        {{--    Hapus Data Modal--}}
-                        <dialog id="modal_{{$u['id']}}" class="modal">
-                            <div class="modal-box">
-                                <h3 class="font-bold text-lg">Peringatan!</h3>
-                                <p class="py-4">Ingin menghapus {{$u['name']}} ?</p>
-                                <div class="modal-action">
-                                    <form method="dialog">
-                                        <a href="/admin/{{$u['id']}}/delete" class="btn btn-error">Hapus</a>
-                                        <button class="btn">Close</button>
-                                    </form>
+                            {{--    Hapus Data Modal--}}
+                            <dialog id="modal_{{$u['id']}}" class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">Peringatan!</h3>
+                                    <p class="py-4">Ingin menghapus {{$u['name']}} ?</p>
+                                    <div class="modal-action">
+                                        <form method="dialog">
+                                            <a href="/admin/{{$u['id']}}/delete" class="btn btn-error">Hapus</a>
+                                            <button class="btn">Close</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </dialog>
-                        {{--    End Hapus Data Modal--}}
-                    </tr>
+                            </dialog>
+                            {{--    End Hapus Data Modal--}}
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

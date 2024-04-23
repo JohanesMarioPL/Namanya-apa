@@ -59,6 +59,7 @@
         <div class="modal-box">
             <h2 class="font-bold text-lg mb-5">Tambah Data Mata Kuliah!</h2>
             <form method="post" action="{{route('add-mata-kuliah')}}">
+                @csrf
                 <div>
                     <label class="input input-bordered flex items-center gap-2 mb-5">
                         ID Mata Kuliah
@@ -71,15 +72,23 @@
 
                     <select id="kurikulum_id" name="kurikulum_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5">
                         <option>Choose a Kurikulum</option>
-                        <option value="2019">KRS</option>
-                        <option value="2022">Baru</option>
+                        @foreach($getNamaKurikulum as $k)
+                            <option value={{$k['id']}}>{{$k['nama_kurikulum']}}</option>
+                        @endforeach
                     </select>
 
                     <select id="sks" name="sks" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5">
                         <option>Choose a SKS</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                    </select>
+
+                    <select id="prodi_id" name="prodi_id" class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5">
+                        <option>Choose a Program Studi</option>
+                        @foreach($getProdi as $p)
+                            <option value={{$p['id']}}>{{$p['nama_prodi']}}</option>
+                        @endforeach
                     </select>
 
                 </div>

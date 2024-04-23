@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\MataKuliah;
 use App\Models\Polling;
 use App\Models\PollingDetail;
@@ -12,19 +12,29 @@ use Illuminate\Http\Request;
 class PollingDetailController extends Controller
 {
 
-    public function getPolDetail()
+    public function getPolDetail(Request $request, $id)
     {
-        $getUser = user::select(['id','nrp'])->get();
-        $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah'])->get();
-        $pollings = Polling::select(['id','poll_name','end_date', 'prodi_id'])->get();
-        $getProdi = Prodi::select(['id','nama_prodi'])->get();
-
-        return Response()->view('prodi.create-polling-view',
-            ['pollings' => $pollings,
-                'getMatkul' => $getMatkul,
-                'getUser' => $getUser,
-                'getProdi' => $getProdi]);
-
+        $pollings = Polling::select(['id', 'poll_name', 'prodi_id'])->where('id', $id)->first();
+        $getUser = User::select(['id', 'nrp'])->get();
+        $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah', 'prodi_id'])
+            ->where('prodi_id', $pollings->prodi_id)
+            ->get();
+        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
+        $jPolls = [];
+        foreach ($getMatkul as $GM) {
+            $jPoll = PollingDetail::where('polling_id', $id)
+                ->where('mata_kuliah_id', $GM->id)
+                ->where('prodi_id', $pollings->prodi_id)
+                ->count();
+            $jPolls[$GM->id] = $jPoll;
+        }
+        return response()->view('prodi.create-polling-view', [
+            'pollings' => $pollings,
+            'getMatkul' => $getMatkul,
+            'getUser' => $getUser,
+            'getProdi' => $getProdi,
+            'jPolls' => $jPolls,
+        ]);
     }
 
     public function getPolDetailUser()
@@ -39,12 +49,42 @@ class PollingDetailController extends Controller
                 'getMatkul' => $getMatkul,
                 'getUser' => $getUser,
                 'getProdi' => $getProdi]);
-
     }
 
-    public function getVoteUser()
+    public function getVoteUser(Request $request, $id)
     {
-        return Response()->view('user.user-vote-polling');
+        $pollings = Polling::select(['id', 'poll_name', 'prodi_id'])->where('id', $id)->first();
+        $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah', 'prodi_id', 'sks', 'kurikulum_id'])
+            ->where('prodi_id', $pollings->prodi_id)
+            ->get();
+        $getProdi = Prodi::select(['id', 'nama_prodi'])->get();
+
+        return response()->view('user.user-vote-polling', [
+            'pollings' => $pollings,
+            'getMatkul' => $getMatkul,
+            'getProdi' => $getProdi,
+        ]);
+    }
+
+    public function SubmitVoteUser(Request $request, $id)
+    {
+        $selectedValues = $request->input('selectedValues');
+        $getMatkul = MataKuliah::select(['id', 'nama_mata_kuliah', 'prodi_id', 'sks', 'kurikulum_id'])
+            ->get();
+        foreach ($selectedValues as $p) {
+            foreach ($getMatkul as $matkul) {
+                if ($p == $matkul['id']) {
+                    PollingDetail::create([
+                        'nama_mata_kuliah' => $matkul->nama_mata_kuliah,
+                        'kurikulum_id' => $matkul->kurikulum_id,
+                        'prodi_id' => $matkul->prodi_id,
+                        'sks' => $matkul->sks,
+                        'polling_id' => $id,
+                    ]);
+                }
+            }
+        }
+        return response()->json(['success' => true]);
     }
 
     public function deletePollingDetail(Request $request, PollingDetail $pollingDetail, $id)

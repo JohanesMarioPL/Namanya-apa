@@ -27,7 +27,7 @@
                         <td>
                             <a class="badge badge-error text-white" onclick="modal_{{$p['id']}}.showModal()">Hapus</a>
                             <a class="badge badge-primary text-white" href="{{ route('prodi.editPoll', ['polling_id' => $p['id']]) }}">Edit</a>
-                            <a class="badge badge-primary text-white" href="{{ route('prodi-polling-detail') }}">View</a>
+                            <a class="badge badge-primary text-white" href="{{ route('prodi-polling-detail', ['polling_id' => $p['id']]) }}">View</a>
                         </td>
 
                         {{--    Hapus Data Modal--}}

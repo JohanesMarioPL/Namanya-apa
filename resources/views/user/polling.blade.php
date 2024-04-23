@@ -23,12 +23,9 @@
                         @endif
                     @endforeach
                     <td>
-                        <a class="badge badge-error text-white" href={{route('user-voting-detail')}}>Vote</a>
-                        <a class="badge badge-primary text-white" href="{{ route('user-polling-detail') }}">View</a>
+                        <a class="badge badge-primary text-white" href="{{ route('user-voting-detail', ['polling_id' => $p['id']]) }}">Vote</a>
                     </td>
                 </tr>
-
-
             @endforeach
             </tbody>
         </table>

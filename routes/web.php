@@ -46,7 +46,7 @@ Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('/prodi/{id}/edit', [MataKuliahController::class, 'edit'])->name('prodi.edit');
 
     // Polling Detail
-    Route::get('prodi/create-polling-view',[PollingDetailController::class, 'getPolDetail'])->name('prodi-polling-detail');
+    Route::get('prodi/{polling_id}/create-polling-view',[PollingDetailController::class, 'getPolDetail'])->name('prodi-polling-detail');
 
 //      Polling
     Route::get('/prodi/create-polling', [PollingController::class, 'getPollings'])->name('prodi-polling');
@@ -77,6 +77,7 @@ Route::middleware(['CheckAdmin'])->group(function() {
     Route::get('/user/profile', [ProfileController::class, 'profileUser'])->name('user-profile');
     Route::get('/logout', [Controller::class, "logout"]);
     Route::get('user/polling-view',[PollingDetailController::class, 'getPolDetailUser'])->name('user-polling-detail');
-    Route::get('user/user-vote-polling',[PollingDetailController::class, 'getVoteUser'])->name('user-voting-detail');
+    Route::get('user/{polling_id}/user-vote-polling',[PollingDetailController::class, 'getVoteUser'])->name('user-voting-detail');
+    Route::post('user/{polling_id}/user-vote-polling',[PollingDetailController::class, 'SubmitVoteUser'])->name('user-voting-submit');
 
 
